@@ -88,7 +88,7 @@ def main():
 
                 for i in values:
                     answer = i.split()[1]
-                    print(f'  {alert}  {answer}  {dnd_getter(xml, answer, "simpleAssociableChoice")}')
+                    print(f'  {alert} {dnd_getter(xml, answer, "simpleAssociableChoice")}')
             else:
                 print(f'  {alert} {answer[0]}')
 
