@@ -60,7 +60,7 @@ def main():
     r = requests.get(url)
 
     if(r.status_code != 200):
-        print(f'{bad} Error: ' + str(r.status_code) + ' ' + r.reason)
+        print(f'{bad} Error: {str(r.status_code)} {r.reason}')
         exit()
 
 
