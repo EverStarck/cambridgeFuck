@@ -29,6 +29,12 @@ def dnd_getter(s, identifier, tag):
         return match.group(1)
     return None
 
+def dnd_question_getter(s, identifier):
+    pattern = r'<simpleAssociableChoice[^>]+identifier="{}"[^>]+><strong>(.*?)</strong>.*?</simpleAssociableChoice>'.format(identifier)
+    match = re.search(pattern, s)
+    if match:
+        return match.group(1)
+    return None
 
 # ----------------------------
 def main():
@@ -72,6 +78,12 @@ def main():
 
         # ----------------------------
         answers = re.findall(r'<correctResponse><value>(.*?)</value>(.*?)</correctResponse>', xml, re.DOTALL)
+
+        # simpleMatch question
+        if isSimpleMatch:
+            id = answers[0][0].split()[0]
+            question = dnd_question_getter(xml, id)
+            print(f'{good} {question}')
 
         for answer in answers:
             if isDnD:
