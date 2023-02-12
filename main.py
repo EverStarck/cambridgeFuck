@@ -36,6 +36,17 @@ def dnd_question_getter(s, identifier):
         return match.group(1)
     return None
 
+def answers_parser(answers):
+    values = []
+    for i in answers:
+        if 'value' in i:
+            tmp = re.findall(r'<value>(.*?)</value>', i)
+            for j in tmp:
+                values.append(j)
+        elif i != '':
+            values.append(i)
+    return values
+
 # ----------------------------
 def main():
     url = sys.argv[1]
@@ -87,17 +98,12 @@ def main():
 
         for answer in answers:
             if isDnD:
-                answer = answer[0].split()[0]
-            if isSimpleMatch:
-                values = []
-                for i in answer:
-                    if 'value' in i:
-                        tmp = re.findall(r'<value>(.*?)</value>', i)
-                        for j in tmp:
-                            values.append(j)
-                    else:
-                        values.append(i)
-
+                values = answers_parser(answer)
+                for i in values:
+                    answer = i.split()[0]
+                    print(f'  {alert} {dnd_getter(xml, answer, "gapText")}')
+            elif isSimpleMatch:
+                values = answers_parser(answer)
                 for i in values:
                     answer = i.split()[1]
                     print(f'  {alert} {dnd_getter(xml, answer, "simpleAssociableChoice")}')
