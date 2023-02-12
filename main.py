@@ -47,6 +47,12 @@ def answers_parser(answers):
             values.append(i)
     return values
 
+def dnd_printer(answer,s, identifier):
+    values = answers_parser(answer)
+    for i in values:
+        answer = i.split()[1]
+        print(f'  {alert} {dnd_getter(s, answer, identifier)}')
+
 # ----------------------------
 def main():
     url = sys.argv[1]
@@ -98,15 +104,9 @@ def main():
 
         for answer in answers:
             if isDnD:
-                values = answers_parser(answer)
-                for i in values:
-                    answer = i.split()[0]
-                    print(f'  {alert} {dnd_getter(xml, answer, "gapText")}')
+                dnd_printer(answer, xml, "gapText")
             elif isSimpleMatch:
-                values = answers_parser(answer)
-                for i in values:
-                    answer = i.split()[1]
-                    print(f'  {alert} {dnd_getter(xml, answer, "simpleAssociableChoice")}')
+                dnd_printer(answer, xml, "simpleAssociableChoice")
             else:
                 print(f'  {alert} {answer[0]}')
 
