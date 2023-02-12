@@ -47,10 +47,10 @@ def answers_parser(answers):
             values.append(i)
     return values
 
-def dnd_printer(answer,s, identifier):
+def dnd_printer(answer,s, identifier, index = 0):
     values = answers_parser(answer)
     for i in values:
-        answer = i.split()[1]
+        answer = i.split()[index]
         print(f'  {alert} {dnd_getter(s, answer, identifier)}')
 
 # ----------------------------
@@ -104,9 +104,9 @@ def main():
 
         for answer in answers:
             if isDnD:
-                dnd_printer(answer, xml, "gapText")
+                dnd_printer(answer, xml, "gapText", 0)
             elif isSimpleMatch:
-                dnd_printer(answer, xml, "simpleAssociableChoice")
+                dnd_printer(answer, xml, "simpleAssociableChoice", 1)
             else:
                 print(f'  {alert} {answer[0]}')
 
