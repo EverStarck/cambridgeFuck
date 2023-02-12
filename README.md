@@ -123,11 +123,11 @@ Wanna contribute to the project? Great! Please follow the next steps in order to
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/EverStarck/cambridgeFuck.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/EverStarck/cambridgefuck.svg?style=for-the-badge
 [contributors-url]: https://github.com/EverStarck/cambridgeFuck/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/EverStarck/cambridgeFuck.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/EverStarck/cambridgefuck.svg?style=for-the-badge
 [forks-url]: https://github.com/EverStarck/cambridgeFuck/network/members
-[stars-shield]: https://img.shields.io/github/stars/EverStarck/cambridgeFuck.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/EverStarck/cambridgefuck.svg?style=for-the-badge
 [stars-url]: https://github.com/EverStarck/cambridgeFuck/stargazers
-[issues-shield]: https://img.shields.io/github/issues/EverStarck/cambridgeFuck.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/EverStarck/cambridgefuck.svg?style=for-the-badge
 [issues-url]: https://github.com/EverStarck/cambridgeFuck/issues
