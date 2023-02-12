@@ -22,8 +22,8 @@ def remove_text_between_tags(s, start_tag, end_tag):
 def remove_non_ascii(s):
     return ''.join(c for c in s if ord(c)<128)
 
-def dnd_getter(s, identifier):
-    pattern = r'<gapText[^>]+identifier="{}"[^>]+>([^<]+)</gapText>'.format(identifier)
+def dnd_getter(s, identifier, tag):
+    pattern = r'<{}[^>]+identifier="{}"[^>]+>([^<]+)</{}>'.format(tag, identifier, tag)
     match = re.search(pattern, s)
     if match:
         return match.group(1)
@@ -61,6 +61,7 @@ def main():
     for xml in xml_dict:
         xml = remove_text_between_tags(xml_dict[xml].replace('\\', ''), '<div id="options">', '</div>')
         isDnD = 'gapMatchInteraction' in xml
+        isSimpleMatch = 'simpleMatchSet' in xml
 
         # ----------------------------
         questions = re.findall(r'<div id="contentblock">\s*<p>(.*?)</p>\s*</div>', xml)
@@ -70,14 +71,26 @@ def main():
             print(f'{good} {questions}')
 
         # ----------------------------
-        answers = re.findall(r'<correctResponse>.*?<value>(.*?)</value>.*?</correctResponse>', xml, re.DOTALL)
+        answers = re.findall(r'<correctResponse><value>(.*?)</value>(.*?)</correctResponse>', xml, re.DOTALL)
 
         for answer in answers:
             if isDnD:
-                answer = answer.split()[0]
-                print(f'  {alert} {dnd_getter(xml, answer)}')
+                answer = answer[0].split()[0]
+            if isSimpleMatch:
+                values = []
+                for i in answer:
+                    if 'value' in i:
+                        tmp = re.findall(r'<value>(.*?)</value>', i)
+                        for j in tmp:
+                            values.append(j)
+                    else:
+                        values.append(i)
+
+                for i in values:
+                    answer = i.split()[1]
+                    print(f'  {alert}  {answer}  {dnd_getter(xml, answer, "simpleAssociableChoice")}')
             else:
-                print(f'  {alert} {answer}')
+                print(f'  {alert} {answer[0]}')
 
         print('\n')
 
