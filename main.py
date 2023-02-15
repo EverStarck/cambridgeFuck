@@ -4,12 +4,14 @@ import re
 import json
 import sys, colorama
 from colorama import Fore, Style
+from bs4 import BeautifulSoup
 
 
 colorama.init()
 bad = Fore.RED + '[-]' + Style.RESET_ALL
 good = Fore.GREEN + '[?]' + Style.RESET_ALL
 alert = Fore.YELLOW + '[=]' + Style.RESET_ALL
+indi = Fore.CYAN + '[!]' + Style.RESET_ALL
 
 
 # ----------------------------
@@ -53,6 +55,24 @@ def dnd_printer(answer,s, identifier, index = 0):
         answer = i.split()[index]
         print(f'  {alert} {dnd_getter(s, answer, identifier)}')
 
+def simple_printer(s, tag, identifier, answer, index = 0):
+    values = answers_parser(answer)
+    for i in values:
+        answer = i.split()[index]
+        print(f'  {alert} {get_text(s, tag, identifier, answer )}')
+
+def el_finder(s, tag, att, att_value):
+    el = s.find(tag, attrs={att: att_value})
+    if not el:
+        return False
+    return el
+
+def get_text(s, tag, att="", att_value=""):
+    el = el_finder(s, tag, att, att_value)
+    if not el:
+        return False
+    return el.text
+
 # ----------------------------
 def main():
     url = sys.argv[1]
@@ -78,26 +98,33 @@ def main():
     try:
         xml_dict = json.loads(xml_quoted)
     except Exception as e:
-        print(str(e) + f'\n{bad} The XML is not parsed correctly. Please open an issue and add the url you used. Thank you!')
+        print(str(e) + f'\n{bad} The XML is not parsed correctly. Please open an issue here (https://github.com/EverStarck/cambridgeFuck/issues) and add the url you used. Thank you!')
         exit()
 
     for xml in xml_dict:
         xml = remove_text_between_tags(xml_dict[xml].replace('\\', ''), '<div id="options">', '</div>')
+        soup = BeautifulSoup(xml, features="xml")
         isDnD = 'gapMatchInteraction' in xml
-        isSimpleMatch = 'simpleMatchSet' in xml
+        isDnDSimple = 'simpleMatchSet' in xml
+        isSimpleInt = 'choiceInteraction' in xml
 
-        # ----------------------------
-        questions = re.findall(r'<div id="contentblock">\s*<p>(.*?)</p>\s*</div>', xml)
+        # ---------------------------- Indication ----------------------------
+        indication = get_text(soup, 'div', 'id', 'rubric')
+        if indication:
+            print(f'{indi}: {indication}')
 
-        if len(questions) > 0:
-            questions = remove_text_between_tags(questions[0], '<', '/>').replace('</>', '___')
-            print(f'{good} {questions}')
+        # ---------------------------- Question ----------------------------
+        parent = el_finder(soup, 'div', 'id', 'contentblock')
+        if parent:
+            question = get_text(parent, 'p')
+            if question:
+                print(f'{good} {question}')
 
-        # ----------------------------
+        # ---------------------------- Answers ----------------------------
         answers = re.findall(r'<correctResponse><value>(.*?)</value>(.*?)</correctResponse>', xml, re.DOTALL)
 
         # simpleMatch question
-        if isSimpleMatch:
+        if isDnDSimple:
             id = answers[0][0].split()[0]
             question = dnd_question_getter(xml, id)
             print(f'{good} {question}')
@@ -105,13 +132,15 @@ def main():
         for answer in answers:
             if isDnD:
                 dnd_printer(answer, xml, "gapText", 0)
-            elif isSimpleMatch:
+            elif isDnDSimple:
                 dnd_printer(answer, xml, "simpleAssociableChoice", 1)
+            elif isSimpleInt:
+                simple_printer(soup, "simpleChoice", "identifier", answer, 0)
             else:
                 print(f'  {alert} {answer[0]}')
 
-        print('\n')
-
+        if answers != []:
+            print('\n')
 
 print(
     '''
@@ -124,7 +153,7 @@ print(
   ░  ▒    ▒   ▒▒ ░  ░      ▒░▒   ░  ░▒ ░ ▒░▒ ░░ ▒  ▒  ░   ░ ░ ░  ░░    ░░▒░ ░ ░  ░  ▒  ░ ░▒ ▒░
 ░         ░   ▒  ░      ░   ░    ░  ░░   ░ ▒ ░░ ░  ░░ ░   ░   ░   ░ ░   ░░░ ░ ░░       ░ ░░ ░ 
 ░ ░           ░  ░      ░   ░        ░     ░    ░         ░   ░  ░        ░    ░ ░     ░  ░   
-░                                ░            ░                                ░                                              ░               ░                                     ░               
+░                                ░            ░  ░                                ░
  \n'''
 )
 
