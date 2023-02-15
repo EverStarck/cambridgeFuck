@@ -71,6 +71,9 @@ def get_text(s, tag, att="", att_value=""):
     el = el_finder(s, tag, att, att_value)
     if not el:
         return False
+
+    if el.find('img'):
+        return f"Image: {el.find('img').get('alt')}"
     return el.text
 
 # ----------------------------
