@@ -84,7 +84,7 @@ def main():
     for xml in xml_dict:
         xml = remove_text_between_tags(xml_dict[xml].replace('\\', ''), '<div id="options">', '</div>')
         isDnD = 'gapMatchInteraction' in xml
-        isSimpleMatch = 'simpleMatchSet' in xml
+        isDnDSimple = 'simpleMatchSet' in xml
 
         # ----------------------------
         questions = re.findall(r'<div id="contentblock">\s*<p>(.*?)</p>\s*</div>', xml)
@@ -97,7 +97,7 @@ def main():
         answers = re.findall(r'<correctResponse><value>(.*?)</value>(.*?)</correctResponse>', xml, re.DOTALL)
 
         # simpleMatch question
-        if isSimpleMatch:
+        if isDnDSimple:
             id = answers[0][0].split()[0]
             question = dnd_question_getter(xml, id)
             print(f'{good} {question}')
@@ -105,7 +105,7 @@ def main():
         for answer in answers:
             if isDnD:
                 dnd_printer(answer, xml, "gapText", 0)
-            elif isSimpleMatch:
+            elif isDnDSimple:
                 dnd_printer(answer, xml, "simpleAssociableChoice", 1)
             else:
                 print(f'  {alert} {answer[0]}')
