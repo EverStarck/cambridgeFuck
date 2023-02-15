@@ -55,6 +55,19 @@ def dnd_printer(answer,s, identifier, index = 0):
         answer = i.split()[index]
         print(f'  {alert} {dnd_getter(s, answer, identifier)}')
 
+
+def el_finder(s, tag, att, att_value):
+    el = s.find(tag, attrs={att: att_value})
+    if not el:
+        return False
+    return el
+
+def get_text(s, tag, att="", att_value=""):
+    el = el_finder(s, tag, att, att_value)
+    if not el:
+        return False
+    return el.text
+
 # ----------------------------
 def main():
     url = sys.argv[1]
