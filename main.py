@@ -4,12 +4,14 @@ import re
 import json
 import sys, colorama
 from colorama import Fore, Style
+from bs4 import BeautifulSoup
 
 
 colorama.init()
 bad = Fore.RED + '[-]' + Style.RESET_ALL
 good = Fore.GREEN + '[?]' + Style.RESET_ALL
 alert = Fore.YELLOW + '[=]' + Style.RESET_ALL
+indi = Fore.CYAN + '[!]' + Style.RESET_ALL
 
 
 # ----------------------------
