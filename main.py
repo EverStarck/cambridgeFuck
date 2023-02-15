@@ -98,11 +98,14 @@ def main():
 
     for xml in xml_dict:
         xml = remove_text_between_tags(xml_dict[xml].replace('\\', ''), '<div id="options">', '</div>')
+        soup = BeautifulSoup(xml, features="xml")
         isDnD = 'gapMatchInteraction' in xml
         isDnDSimple = 'simpleMatchSet' in xml
 
-        # ----------------------------
-        questions = re.findall(r'<div id="contentblock">\s*<p>(.*?)</p>\s*</div>', xml)
+        # ---------------------------- Indication ----------------------------
+        indication = get_text(soup, 'div', 'id', 'rubric')
+        if indication:
+            print(f'{indi}: {indication}')
 
         if len(questions) > 0:
             questions = remove_text_between_tags(questions[0], '<', '/>').replace('</>', '___')
