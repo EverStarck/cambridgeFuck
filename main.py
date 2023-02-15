@@ -55,6 +55,11 @@ def dnd_printer(answer,s, identifier, index = 0):
         answer = i.split()[index]
         print(f'  {alert} {dnd_getter(s, answer, identifier)}')
 
+def simple_printer(s, tag, identifier, answer, index = 0):
+    values = answers_parser(answer)
+    for i in values:
+        answer = i.split()[index]
+        print(f'  {alert} {get_text(s, tag, identifier, answer )}')
 
 def el_finder(s, tag, att, att_value):
     el = s.find(tag, attrs={att: att_value})
@@ -101,6 +106,7 @@ def main():
         soup = BeautifulSoup(xml, features="xml")
         isDnD = 'gapMatchInteraction' in xml
         isDnDSimple = 'simpleMatchSet' in xml
+        isSimpleInt = 'choiceInteraction' in xml
 
         # ---------------------------- Indication ----------------------------
         indication = get_text(soup, 'div', 'id', 'rubric')
@@ -114,7 +120,7 @@ def main():
             if question:
                 print(f'{good} {question}')
 
-        # ----------------------------
+        # ---------------------------- Answers ----------------------------
         answers = re.findall(r'<correctResponse><value>(.*?)</value>(.*?)</correctResponse>', xml, re.DOTALL)
 
         # simpleMatch question
@@ -128,11 +134,13 @@ def main():
                 dnd_printer(answer, xml, "gapText", 0)
             elif isDnDSimple:
                 dnd_printer(answer, xml, "simpleAssociableChoice", 1)
+            elif isSimpleInt:
+                simple_printer(soup, "simplechoice", "identifier", answer, 0)
             else:
                 print(f'  {alert} {answer[0]}')
 
-        print('\n')
-
+        if answers != []:
+            print('\n')
 
 print(
     '''
