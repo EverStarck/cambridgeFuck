@@ -135,7 +135,7 @@ def main():
             elif isDnDSimple:
                 dnd_printer(answer, xml, "simpleAssociableChoice", 1)
             elif isSimpleInt:
-                simple_printer(soup, "simplechoice", "identifier", answer, 0)
+                simple_printer(soup, "simpleChoice", "identifier", answer, 0)
             else:
                 print(f'  {alert} {answer[0]}')
 
