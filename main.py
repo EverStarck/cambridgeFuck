@@ -91,6 +91,7 @@ def main():
     xml_string = r.text.replace('\n','').replace('\\n', '').replace('\\r','').replace('  ', '').encode().decode('unicode_escape').replace('\'', '').replace(u'\xa0', u' ')
     xml_string = remove_non_ascii(xml_string)
     xml_escaped = html.unescape(xml_string)
+    xml_escaped = remove_text_between_tags(xml_escaped, '<div id="headerAudio"', '>')
 
     # Remove all empty strings (="") and add `\\` to all `"` characters
     xml_quoted = escape_quotes(xml_escaped.replace('""', 'null'))
