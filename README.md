@@ -46,7 +46,8 @@ Here is how it looks like:
 ### Main modules
 
 - [requests](https://docs.python-requests.org/en/latest/)
-- [colorama](https://pypi.org/project/colorama/)
+- [Beautiful Soup 4](https://beautiful-soup-4.readthedocs.io/en/latest/index.html?highlight=xml#)
+- [json](https://docs.python.org/3/library/json.html)
 - [re](https://docs.python.org/3/library/re.html)
 - [html](https://docs.python.org/3/library/html.html)
 - [json](https://docs.python.org/3/library/json.html)
@@ -90,21 +91,20 @@ python main.py <url>
 
 `[=]` is the answer
 
-Please note that the script is not foolproof and **some questions may not be parsed accurately**. As a result, you may encounter incomplete questions or HTML tags in the text.
-
-Example:
-```
- ___ the nurses when they make mistakes. Thats hurtful to them, and it wont help them learn.___<strong>B:</strong> OK, Ill try not to say anything mean about them.
-```
 
 ### The answer is a number?
-Yes, it represents the index of the correct answer in the list of options. Please note that the numbering starts from 0.
+Yes, **it represents the index** of the correct answer in the list of options. Please note that **the numbering starts from 0**.
 
 ![Droplist](https://user-images.githubusercontent.com/51029456/218336176-a7863483-40e9-4bab-9b4a-6682ec3b1dd1.png)
 
+⚠️ **Some exercises have numbers in the options**, so the numbering of the answers may be confusing. Please note that the numbering of the answers starts from 0.
+
 ## Getting errors?
-Sorry for that. Please open an issue and I will try to fix it as soon as possible.
-Please make sure to include the URL.
+We apologize for any errors you may be experiencing.
+
+Please keep in mind that if the exercise you are attempting is a writing or listening task and does not include answers, an error may occur. However, if you encounter an error while attempting an exercise that should have answers, please open an issue and we will work to resolve it as soon as possible.
+
+When reporting an issue, please make sure to include the URL for the exercise. Thank you for your patience:)
 
 <!-- CONTRIBUTING -->
 
