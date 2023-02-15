@@ -107,9 +107,12 @@ def main():
         if indication:
             print(f'{indi}: {indication}')
 
-        if len(questions) > 0:
-            questions = remove_text_between_tags(questions[0], '<', '/>').replace('</>', '___')
-            print(f'{good} {questions}')
+        # ---------------------------- Question ----------------------------
+        parent = el_finder(soup, 'div', 'id', 'contentblock')
+        if parent:
+            question = get_text(parent, 'p')
+            if question:
+                print(f'{good} {question}')
 
         # ----------------------------
         answers = re.findall(r'<correctResponse><value>(.*?)</value>(.*?)</correctResponse>', xml, re.DOTALL)
