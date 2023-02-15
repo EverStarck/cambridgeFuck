@@ -98,7 +98,7 @@ def main():
     try:
         xml_dict = json.loads(xml_quoted)
     except Exception as e:
-        print(str(e) + f'\n{bad} The XML is not parsed correctly. Please open an issue and add the url you used. Thank you!')
+        print(str(e) + f'\n{bad} The XML is not parsed correctly. Please open an issue here (https://github.com/EverStarck/cambridgeFuck/issues) and add the url you used. Thank you!')
         exit()
 
     for xml in xml_dict:

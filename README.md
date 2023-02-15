@@ -102,7 +102,7 @@ Yes, **it represents the index** of the correct answer in the list of options. P
 ## Getting errors?
 We apologize for any errors you may be experiencing.
 
-Please keep in mind that if the exercise you are attempting is a writing or listening task and does not include answers, an error may occur. However, if you encounter an error while attempting an exercise that should have answers, please open an issue and we will work to resolve it as soon as possible.
+Please keep in mind that **if the exercise** you are attempting is a writing or listening task and **does not include answers, an error may occur**. However, if you encounter an error while attempting an exercise that should have answers, please [open an issue](https://github.com/EverStarck/cambridgeFuck/issues) and we will work to resolve it as soon as possible.
 
 When reporting an issue, please make sure to include the URL for the exercise. Thank you for your patience:)
 
