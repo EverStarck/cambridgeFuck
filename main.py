@@ -84,7 +84,7 @@ def main():
 
     if(r.status_code != 200):
         print(f'{bad} Error: {str(r.status_code)} {r.reason}')
-        exit()
+        sys.exit()
 
 
     # Escape the xml string
@@ -103,7 +103,7 @@ def main():
         xml_dict = json.loads(xml_quoted)
     except Exception as e:
         print(str(e) + f'\n{bad} The XML is not parsed correctly. Please open an issue here (https://github.com/EverStarck/cambridgeFuck/issues) and add the url you used. Thank you!')
-        exit()
+        sys.exit()
 
     for xml in xml_dict:
         xml = remove_text_between_tags(xml_dict[xml].replace('\\', ''), '<div id="options">', '</div>')
