@@ -82,7 +82,7 @@ def main():
 
     r = requests.get(url)
 
-    if(r.status_code != 200):
+    if r.status_code != 200:
         print(f'{bad} Error: {str(r.status_code)} {r.reason}')
         sys.exit()
 
