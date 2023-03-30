@@ -11,6 +11,8 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
+[This script is no longer actively maintained. It will continue working, but assignments issues will not be fixed.](https://github.com/EverStarck/cambridgeFuck/issues/13)
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
